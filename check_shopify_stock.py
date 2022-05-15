@@ -18,33 +18,35 @@ def stock_checker(url):
     stock_json = json.loads(requests.get(convert_url).text)
     try:
         for item in stock_json['variants']:
+            utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
             if find_variant != None:
                 if find_variant.group(0) == str(item['id']):
-                    stock_message = "In stock: " + str(item['available']) + ", Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url)
+                    stock_message = utc_time_print + ", In stock: " + str(item['available']) + ", Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url)
                     print(stock_message)
                     if str(item['available']) == "True":
-                        in_stock_list.append("Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url))
+                        in_stock_list.append(utc_time_print + ", Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url))
                         
                     write_stock_record(stock_message)
             else:
-                stock_message = "In stock: " + str(item['available']) + ", Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url)
+                stock_message = utc_time_print + ", In stock: " + str(item['available']) + ", Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url)
                 print(stock_message)
                 if str(item['available']) == "True":
-                    in_stock_list.append("Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url))
+                    in_stock_list.append(utc_time_print + ", Name: " + str(item['name']) + ", SKU: " + str(item['sku'] + ", URL: " + url))
                     
                 write_stock_record(stock_message)
                     
     except Exception as e:
         print("Request failed\n")
         print(e)
-        stock_message = "In stock: " + "Request failed" + ", URL: " + url
+        utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+        stock_message = utc_time_print + ", In stock: " + "Request failed" + ", URL: " + url
         
     time.sleep(1)
         
 
 def write_stock_record(stock_message):
     try:
-        with open ("stock_record_" + utc_time + ".txt", "a") as stock_record:
+        with open ("shopify_stock_record_" + utc_time + ".txt", "a") as stock_record:
             stock_record.write(stock_message)
             stock_record.write("\n")
     except Exception as e:
