@@ -77,10 +77,15 @@ def stock_check_runner(request_data):
         
 #verify that the webhook url is set and valid
 webhook_handler.verify_webhook()
+try:
+    with open("list.txt", "r") as urlListRaw:
+        urlListLines = urlListRaw.readlines()
+    urlList = list(map(str.strip, urlListLines))
 
-with open("list.txt", "r") as urlListRaw:
-    urlListLines = urlListRaw.readlines()
-urlList = list(map(str.strip, urlListLines))
+except Exception as e:
+    print("list.txt not found or cannot be opened. Make sure you've made the file correctly.")
+    print(e)
+    input()
 
 while True:
     for item in urlList:
