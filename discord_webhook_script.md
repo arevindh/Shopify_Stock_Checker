@@ -25,11 +25,11 @@ pip install requests
     
     To check all variants of a product, remove the `?variant={variantid}` suffix from the url if it appears.
 
-2. Run `check_shopify_stock_webhook.py` then close it to generate default settings file
+2. Run `check_shopify_stock_webhook.py` then close it to generate default settings file.
 
-3. Open `config.cfg` and add your discord webhook url for `url = `
+3. Open `config.cfg` and add your discord webhook url for `url = `.
 
-4. Configure the message content you want to send when a mousepad goes from out of stock to in stock.
+4. Edit `content = ` to configure the message content you want to send when a mousepad goes from out of stock to in stock.
 
     `{Name}` sends the item's name.
 
