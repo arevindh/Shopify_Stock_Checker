@@ -47,7 +47,7 @@ pip install requests
 
     `{Link}` sends a link to the item's store page.
 
-5. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking variants, looping batch, and request fail.
+5. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, looping batch, and request fail.
 
     `stock_delay` adds a delay after sending the stock check request.
 

@@ -27,7 +27,7 @@ pip install requests
 
 2. Run `check_shopify_stock.py`
 
-3. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, checking cart, and request fail. (`config.cfg` is generated after starting the script once)
+3. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, and request fail. (`config.cfg` is generated after starting the script once)
 
     `stock_delay` adds a delay after sending the stock check request.
 
