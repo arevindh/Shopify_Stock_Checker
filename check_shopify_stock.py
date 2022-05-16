@@ -3,6 +3,7 @@ import re
 import json
 import time
 from datetime import datetime,timezone
+import config_handler
 
 with open("list.txt", "r") as urlListRaw:
         urlListLines = urlListRaw.readlines()
@@ -11,6 +12,9 @@ urlList = list(map(str.strip, urlListLines))
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
 in_stock_list = []
+
+stock_delay = config_handler.read("config.cfg","stock","stock_delay")
+request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
 
 def stock_checker(url):
     convert_url = re.sub("(?<!\.js)$",".js",re.sub("\?.*",".js",url))
@@ -38,10 +42,13 @@ def stock_checker(url):
     except Exception as e:
         print("Request failed\n")
         print(e)
+        print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
+        time.sleep(float(request_fail_delay))
         utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
         stock_message = utc_time_print + ", In stock: " + "Request failed" + ", URL: " + url
         
-    time.sleep(1)
+    print("Stock delay. Waiting: " + str(stock_delay) + " seconds")
+    time.sleep(float(stock_delay))
         
 
 def write_stock_record(stock_message):
