@@ -34,3 +34,7 @@ pip install requests
     `batch_delay` is unused in the basic script. It is for the webhook only.
 
     `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
+
+## Troubleshooting
+
+To reset settings to default, delete `config.cfg` and run the script. A new `config.cfg` will be generated with defaults.

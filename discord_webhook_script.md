@@ -56,3 +56,9 @@ pip install requests
     `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
 
 6. Run `check_shopify_stock_webhook.py`
+
+## Troubleshooting
+
+To reset settings to default, delete `config.cfg` and run the script. A new `config.cfg` will be generated with defaults.
+
+To reset stock states and tracking, delete `stock_state.json`. This will remove the current stock data collected by the script. Upon running the script again it will rerecord the stock states. This will cause the script to resend webhook messages for items that had previously been recorded as in stock and have not had a change in state.
