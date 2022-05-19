@@ -1,6 +1,7 @@
 import json
 import time
 import hashlib
+import error_logger
 
 def backup_bad_states(json_file):
     try:
@@ -37,9 +38,9 @@ def read_state_file(json_file,dict_key):
 
                 return "False"
             
-        except Exception:
+        except Exception as e:
             if json_file == "stock_state.json":
-                print("Stock states corrupted. Reverting to default.")
+                error_logger.error_log("Stock states corrupted. Reverting to default:",e)
                 default_json(json_file)
             time.sleep(1)
             

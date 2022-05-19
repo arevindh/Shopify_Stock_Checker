@@ -1,18 +1,20 @@
 import requests
 import re
-import itertools
 import time
 import json
 from datetime import datetime,timezone
 import webhook_handler
 import config_handler
 import stock_state_tracker
+import error_logger
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
 stock_delay = config_handler.read("config.cfg","stock","stock_delay")
 batch_delay = config_handler.read("config.cfg","stock","batch_delay")
 request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
+
+url = config_handler.read("config.cfg","webhook","url")
 
 def find_variants(url):
     convert_url = re.sub("(?<!\.js)$",".js",re.sub("\?.*",".js",url))
@@ -28,12 +30,10 @@ def find_variants(url):
 def stock_info_handling(stock_info,stock_message,stock_state_id,item_info,link):
     if stock_info == "True":
         stock_state = stock_state_tracker.find_item_state(stock_state_id,"True")
-        webhook_handler.webhook_sender(item_info,stock_state,link)
+        webhook_handler.webhook_sender(item_info,stock_state,link,url)
         
     else:
         stock_state_tracker.find_item_state(stock_state_id,"False")
-            
-    utc_time_print = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
     try:
         with open ("shopify_stock_record_" + utc_time + ".txt", "a") as stock_record:
@@ -41,8 +41,7 @@ def stock_info_handling(stock_info,stock_message,stock_state_id,item_info,link):
             stock_record.write("\n")
                 
     except Exception as e:
-        print("Could not open or write to file:")
-        print(e)
+        error_logger.error_log("Could not open or write to file:",e)
         
 def stock_check_runner(request_data):
     try:
@@ -70,8 +69,7 @@ def stock_check_runner(request_data):
         time.sleep(float(stock_delay))
         
     except Exception as e:
-        print("Stock check failed:")
-        print(e)
+        error_logger.error_log("Stock check failed:",e)
         print("Request fail delay. Waiting: " + str(request_fail_delay) + " seconds")
         time.sleep(float(request_fail_delay))
         
@@ -83,8 +81,7 @@ try:
     urlList = list(map(str.strip, urlListLines))
 
 except Exception as e:
-    print("list.txt not found or cannot be opened. Make sure you've made the file correctly.")
-    print(e)
+    error_logger.error_log("list.txt not found or cannot be opened. Make sure you've made the file correctly:",e)
     input()
 
 while True:
