@@ -2,10 +2,10 @@
 
 Scripts to check stock of shopify items.
 
-## [Basic Script](basic_script.md)
+## [Basic Script](./docs/basic_script.md)
 
 Single run stock checking in command line. 
 
-## [Discord Webhook Script](discord_webhook_script.md)
+## [Discord Webhook Script](./docs/discord_webhook_script.md)
 
 Automated stock checking and notifying through discord webhook.
