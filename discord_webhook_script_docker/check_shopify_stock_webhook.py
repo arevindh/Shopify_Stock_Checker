@@ -4,7 +4,6 @@ import time
 import json
 from datetime import datetime,timezone
 import webhook_handler
-import config_handler
 import stock_state_tracker
 import error_logger
 import os

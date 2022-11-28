@@ -1,6 +1,5 @@
 import re
 import requests
-import config_handler
 import error_logger
 import os
 
