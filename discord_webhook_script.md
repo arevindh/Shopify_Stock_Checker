@@ -29,7 +29,7 @@ pip install requests
 
 3. Open `config.cfg` and add your discord webhook url for `url = `.
 
-4. Edit `content = ` to configure the message content you want to send when a mousepad goes from out of stock to in stock.
+4. Edit `content = ` to configure the message content you want to send when a product goes from out of stock to in stock.
 
     `{Name}` sends the item's name.
 
@@ -51,7 +51,7 @@ pip install requests
 
     `stock_delay` adds a delay after sending the stock check request.
 
-    `batch_delay` adds a delay between checking the full list of pads. Only used between the last item in the list and the first item in the list when looping back to the first item.
+    `batch_delay` adds a delay between checking the full list of products. Only used between the last item in the list and the first item in the list when looping back to the first item.
 
     `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
 
