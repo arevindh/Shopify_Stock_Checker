@@ -2,6 +2,7 @@ import re
 import requests
 import config_handler
 import error_logger
+import os
 
 def fix_nonetypes(json_item):
     try:
@@ -13,7 +14,7 @@ def webhook_sender(item,stock_state,link,url):
     try:
         if stock_state == True:
             
-            content = config_handler.read("config.cfg","webhook","content")
+            content = os.environ["WEBHOOK_CONTENT"]
 
             variable_dict = {
                 "{Name}" : fix_nonetypes(item['name']),
@@ -42,7 +43,7 @@ def webhook_sender(item,stock_state,link,url):
         
 def verify_webhook():
     try:
-        url = config_handler.read("config.cfg","webhook","url")
+        url = os.environ["WEBHOOK_URL"]
 
         try:
             webhook_test = requests.get(url)
