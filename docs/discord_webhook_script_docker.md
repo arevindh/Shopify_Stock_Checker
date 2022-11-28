@@ -2,6 +2,8 @@
 
 ## Dependencies
 
+Docker: [Download link](https://www.docker.com/)
+
 Python 3: [Download link](https://www.python.org/downloads/)
 
 Python `requests` module: To install, enter the following command in cmd or a terminal:
