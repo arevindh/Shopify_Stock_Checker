@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  shopify_stock:
+    container_name: shopify_stock
+    volumes:
+      - './list.txt:/usr/app/list.txt'
+    environment:
+      - 'WEBHOOK_URL=url-'
+    image: arevindh/shopify_stock

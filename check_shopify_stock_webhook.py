@@ -7,14 +7,15 @@ import webhook_handler
 import config_handler
 import stock_state_tracker
 import error_logger
+import os
 
 utc_time = datetime.now(timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
 
-stock_delay = config_handler.read("config.cfg","stock","stock_delay")
-batch_delay = config_handler.read("config.cfg","stock","batch_delay")
-request_fail_delay = config_handler.read("config.cfg","stock","request_fail_delay")
+stock_delay = os.environ["STOCK_DELAY"]
+batch_delay = os.environ["BATCH_DELAY"]
+request_fail_delay = os.environ["REQUEST_FAIL_DELAY"]
 
-url = config_handler.read("config.cfg","webhook","url")
+url = os.environ["WEBHOOK_URL"]
 
 def find_variants(url):
     convert_url = re.sub("(?<!\.js)$",".js",re.sub("\?.*",".js",url))
@@ -36,7 +37,7 @@ def stock_info_handling(stock_info,stock_message,stock_state_id,item_info,link):
         stock_state_tracker.find_item_state(stock_state_id,"False")
 
     try:
-        with open ("shopify_stock_record_" + utc_time + ".txt", "a") as stock_record:
+        with open ("log/shopify_stock_record_" + utc_time + ".txt", "a") as stock_record:
             stock_record.write(stock_message)
             stock_record.write("\n")
                 
