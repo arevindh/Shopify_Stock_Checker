@@ -14,7 +14,7 @@ pip install requests
 
 ## Usage
 
-1. Create a file named `list.txt` in the same directory as `check_shopify_stock_webhook.py`. The file should contain a newline separated list of urls for items to check stock of. 
+1. Create a file named `list.txt` in the same directory as `./discord_webhook_script_docker/check_shopify_stock_webhook.py`. The file should contain a newline separated list of urls for items to check stock of. 
 
     For example: 
     ```
@@ -27,7 +27,7 @@ pip install requests
     
     To check all variants of a product, remove the `?variant={variantid}` suffix from the url if it appears.
 
-2. Open `Dockerfile` and add your discord webhook url for `WEBHOOK_URL=`.
+2. Open `./discord_webhook_script_docker/Dockerfile` and add your discord webhook url for `WEBHOOK_URL=`.
 
 3. Edit `WEBHOOK_CONTENT=` to configure the message content you want to send when a product goes from out of stock to in stock.
 
@@ -47,7 +47,7 @@ pip install requests
 
     `{Link}` sends a link to the item's store page.
 
-4. Optionally, edit the delays in `Dockerfile` to change the delay in seconds between checking stock, looping batch, and request fail.
+4. Optionally, edit the delays in `./discord_webhook_script_docker/Dockerfile` to change the delay in seconds between checking stock, looping batch, and request fail.
 
     `STOCK_DELAY` adds a delay after sending the stock check request.
 
@@ -59,4 +59,4 @@ pip install requests
 
 ## Troubleshooting
 
-To reset stock states and tracking, delete `stock_state.json`. This will remove the current stock data collected by the script. Upon running the script again it will rerecord the stock states. This will cause the script to resend webhook messages for items that had previously been recorded as in stock and have not had a change in state.
+To reset stock states and tracking, delete `./discord_webhook_script_docker/stock_state.json`. This will remove the current stock data collected by the script. Upon running the script again it will rerecord the stock states. This will cause the script to resend webhook messages for items that had previously been recorded as in stock and have not had a change in state.

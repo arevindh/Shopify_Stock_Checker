@@ -12,7 +12,7 @@ pip install requests
 
 ## Usage
 
-1. Create a file named `list.txt` in the same directory as `check_shopify_stock.py`. The file should contain a newline separated list of urls for items to check stock of. 
+1. Create a file named `list.txt` in the same directory as `./basic_script/check_shopify_stock.py`. The file should contain a newline separated list of urls for items to check stock of. 
 
     For example: 
     ```
@@ -25,7 +25,7 @@ pip install requests
     
     To check all variants of a product, remove the `?variant={variantid}` suffix from the url if it appears.
 
-2. Run `check_shopify_stock.py`
+2. Run `./basic_script/check_shopify_stock.py`
 
 3. Optionally, edit the delays in `config.cfg` to change the delay in seconds between checking stock, and request fail. (`config.cfg` is generated after starting the script once)
 

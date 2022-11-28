@@ -12,7 +12,7 @@ pip install requests
 
 ## Usage
 
-1. Create a file named `list.txt` in the same directory as `check_shopify_stock_webhook.py`. The file should contain a newline separated list of urls for items to check stock of. 
+1. Create a file named `list.txt` in the same directory as `,/discord_webhook_script/check_shopify_stock_webhook.py`. The file should contain a newline separated list of urls for items to check stock of. 
 
     For example: 
     ```
@@ -25,7 +25,7 @@ pip install requests
     
     To check all variants of a product, remove the `?variant={variantid}` suffix from the url if it appears.
 
-2. Run `check_shopify_stock_webhook.py` then close it to generate default settings file.
+2. Run `./discord_webhook_script/check_shopify_stock_webhook.py` then close it to generate default settings file.
 
 3. Open `config.cfg` and add your discord webhook url for `url = `.
 
@@ -55,7 +55,7 @@ pip install requests
 
     `request_fail_delay` adds a delay after a request fails before resuming the sending of requests.
 
-6. Run `check_shopify_stock_webhook.py`
+6. Run `./discord_webhook_script/check_shopify_stock_webhook.py`
 
 ## Troubleshooting
 
