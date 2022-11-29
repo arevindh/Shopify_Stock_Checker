@@ -4,32 +4,21 @@
 
 Docker: [Download link](https://www.docker.com/)
 
-Python 3: [Download link](https://www.python.org/downloads/)
-
-Python `requests` module: To install, enter the following command in cmd or a terminal:
-
-```
-pip install requests
-```
+Docker Compose [Download link](https://docs.docker.com/compose/)
 
 ## Usage
 
-1. Create a file named `list.txt` in the same directory as `./discord_webhook_script_docker/check_shopify_stock_webhook.py`. The file should contain a newline separated list of urls for items to check stock of. 
+1. Clone this repo 
 
-    For example: 
-    ```
-    https://examplestore.com/products/exampleproduct
-    https://examplestore.com/products/exampleproduct2?variant=39615971195628
-    https://examplestore.com/collections/examplecollection/products/exampleproduct3
-    ```
+   `git clone https://github.com/Kuuuube/Shopify_Stock_Checker`
 
-    To check only specific variants of a product, be sure to use a url with the correct `?variant={variantid}` suffix. 
-    
-    To check all variants of a product, remove the `?variant={variantid}` suffix from the url if it appears.
+2. Change to docker directory `Shopify_Stock_Checker/discord_webhook_script_docker`
 
-2. Open `./discord_webhook_script_docker/Dockerfile` and add your discord webhook url for `WEBHOOK_URL=`.
+   `cd Shopify_Stock_Checker/discord_webhook_script_docker`
 
-3. Edit `WEBHOOK_CONTENT=` to configure the message content you want to send when a product goes from out of stock to in stock.
+3. Edit `docker-compose.yaml` file and change `WEBHOOK_URL=` with your own.
+
+4. Edit `WEBHOOK_CONTENT=` to configure the message content you want to send when a product goes from out of stock to in stock.
 
     `{Name}` sends the item's name.
 
@@ -47,7 +36,7 @@ pip install requests
 
     `{Link}` sends a link to the item's store page.
 
-4. Optionally, edit the delays in `./discord_webhook_script_docker/Dockerfile` to change the delay in seconds between checking stock, looping batch, and request fail.
+5. Optionally, edit the delays to change the delay in seconds between checking stock, looping batch, and request fail.
 
     `STOCK_DELAY` adds a delay after sending the stock check request.
 
@@ -55,8 +44,8 @@ pip install requests
 
     `REQUEST_FAIL_DELAY` adds a delay after a request fails before resuming the sending of requests.
 
-5. Run `sudo docker-compose up -d`
+6. Start the docker container
 
-## Troubleshooting
+   `sudo docker-compose up -d`
 
-To reset stock states and tracking, delete `./discord_webhook_script_docker/stock_state.json`. This will remove the current stock data collected by the script. Upon running the script again it will rerecord the stock states. This will cause the script to resend webhook messages for items that had previously been recorded as in stock and have not had a change in state.
+
