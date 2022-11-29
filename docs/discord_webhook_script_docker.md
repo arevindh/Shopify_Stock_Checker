@@ -16,9 +16,22 @@ Docker Compose [Download link](https://docs.docker.com/compose/)
 
    `cd Shopify_Stock_Checker/discord_webhook_script_docker`
 
-3. Edit `docker-compose.yaml` file and change `WEBHOOK_URL=` with your own.
+3. Create a file named `list.txt`. The file should contain a newline separated list of urls for items to check stock of. 
 
-4. Edit `WEBHOOK_CONTENT=` to configure the message content you want to send when a product goes from out of stock to in stock.
+    For example: 
+    ```
+    https://examplestore.com/products/exampleproduct
+    https://examplestore.com/products/exampleproduct2?variant=39615971195628
+    https://examplestore.com/collections/examplecollection/products/exampleproduct3
+    ```
+
+    To check only specific variants of a product, be sure to use a url with the correct `?variant={variantid}` suffix. 
+    
+    To check all variants of a product, remove the `?variant={variantid}` suffix from the url if it appears.
+
+4. Edit `docker-compose.yaml` file and change `WEBHOOK_URL=` with your own.
+
+5. Edit `WEBHOOK_CONTENT=` to configure the message content you want to send when a product goes from out of stock to in stock.
 
     `{Name}` sends the item's name.
 
@@ -36,7 +49,7 @@ Docker Compose [Download link](https://docs.docker.com/compose/)
 
     `{Link}` sends a link to the item's store page.
 
-5. Optionally, edit the delays to change the delay in seconds between checking stock, looping batch, and request fail.
+6. Optionally, edit the delays to change the delay in seconds between checking stock, looping batch, and request fail.
 
     `STOCK_DELAY` adds a delay after sending the stock check request.
 
@@ -44,8 +57,10 @@ Docker Compose [Download link](https://docs.docker.com/compose/)
 
     `REQUEST_FAIL_DELAY` adds a delay after a request fails before resuming the sending of requests.
 
-6. Start the docker container
+7. Start the docker container
 
    `sudo docker-compose up -d`
 
+## Troubleshooting
 
+To reset stock states and tracking, delete `./discord_webhook_script_docker/stock_state.json`. This will remove the current stock data collected by the script. Upon running the script again it will rerecord the stock states. This will cause the script to resend webhook messages for items that had previously been recorded as in stock and have not had a change in state.
