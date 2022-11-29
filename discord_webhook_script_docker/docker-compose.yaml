@@ -5,5 +5,9 @@ services:
     volumes:
       - './list.txt:/usr/app/list.txt'
     environment:
-      - 'WEBHOOK_URL=url-'
+      - 'WEBHOOK_URL=<url here>'
+      #- 'WEBHOOK_CONTENT=In Stock!\nName: {Name}, Title: {Title}, SKU: {SKU}\nLink: {Link}'
+      #- 'STOCK_DELAY=30'
+      #- 'BATCH_DELAY=120'
+      #- 'REQUEST_FAIL_DELAY=120'
     image: arevindh/shopify_stock
